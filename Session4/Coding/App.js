@@ -34,12 +34,15 @@ const HeaderComponent = () => {
 const Body = () => {
   return (
     <div className="cardList">
-      <RestaurantCard restaurant={restaurantList[0]} />
-      <RestaurantCard restaurant={restaurantList[1]} />
-      <RestaurantCard restaurant={restaurantList[2]} />
-      <RestaurantCard restaurant={restaurantList[3]} />
-      <RestaurantCard restaurant={restaurantList[4]} />
-      <RestaurantCard restaurant={restaurantList[5]} />
+        {restaurantList.map((restaurant)=>{
+               return <RestaurantCard {...restaurant.data} />
+        })}
+      {/* <RestaurantCard {...restaurantList[0].data} />
+      <RestaurantCard {...restaurantList[1].data} /> 
+      <RestaurantCard {...restaurantList[2].data} /> 
+      <RestaurantCard {...restaurantList[3].data} />
+      <RestaurantCard {...restaurantList[4].data} />
+      <RestaurantCard {...restaurantList[5].data} /> */}
     </div>
   );
 };
@@ -59,8 +62,8 @@ const burgerKingn = {
 };
 
 //Restraunt Card
-const RestaurantCard = ({restaurant}) => {
-    const {cloudinaryImageId, name, cuisines, avgRating} = restaurant.data;
+const RestaurantCard = ({cloudinaryImageId, name, cuisines, avgRating}) => {
+    // const {cloudinaryImageId, name, cuisines, avgRating} = restaurant.data;
   return (
     <div className="card">
       <img
