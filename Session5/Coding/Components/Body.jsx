@@ -1,48 +1,44 @@
-import React from "react";
-import { useState } from "react";
 import RestrauntCard from "./RestrauntCard";
 import { restaurantList } from "../constants";
+import { useState } from "react";
 
-const filterData = (restraunt, searchText) => {
-    const filterData = restraunt.filter((item) => {
-        item.data.name.toLowerCase().includes(searchText.toLowerCase());
-    });
-    return filterData;
-  };
+import React from "react";
+
 const Body = () => {
   const [searchText, setSearchText] = useState("");
-  const [restraunt, setRestraunt] = useState(restaurantList);
-  //   const searchHandeler = (e) =>{
-  //     console.log("Clicked")
-  //     setSearchText()
-  //   }
-  
+  const [restraunts, setRestraunts] = useState(restaurantList);
+
+  const filterData = (searchText, restraunts) => {
+    const filterData = restraunts.filter((restraunt) =>
+      restraunt.data.name.toLowerCase().includes(searchText.toLowerCase())
+    );
+    return filterData;
+  };
   return (
     <>
       <div className="searchContainer">
         <input
-          type="text"
-          placeholder="Search Something"
-          onChange={(e) => setSearchText(e.target.value)}
+          placeholder="Search Here"
+          onChange={(e) => {
+            setSearchText(e.target.value);
+          }}
           value={searchText}
         />
         <button
           onClick={() => {
-            const newData = filterData(restraunt, searchText);
-            setRestraunt(newData);
+            const data = filterData(searchText, restraunts);
+            setRestraunts(data);
           }}
         >
           Search
         </button>
-        </div>
-        <div className="cardList">
-          {restraunt.map((restaurant) => {
-            return (
-              <RestrauntCard {...restaurant.data} key={restaurant.data.id} />
-            );
-          })}
-        </div>
-      
+      </div>
+
+      <div className="cardList">
+        {restraunts.map((restraunt) => {
+          return <RestrauntCard {...restraunt.data} key={restraunt.data.id} />;
+        })}
+      </div>
     </>
   );
 };
